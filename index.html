@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <script src="./config/fabric.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div>
+        <div class="inline-container">
+          <input type="file" accept="" class="form-control" id="myImage" />
+          <button onclick="clearHandler()" class="btn btn-danger">Clear</button>
+        </div>
+        <canvas id="myCanvas"></canvas>
+      </div>
+      <div class="filters">
+        <div>
+          Grayscale
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('gray')"
+            value="gray"
+          />
+
+          &emsp; Avg
+          <input
+            type="radio"
+            onChange="checkBoxHandler('gray')"
+            value="gray_Avg"
+            name="grayMode"
+          />
+
+          &emsp; Lum<input
+            type="radio"
+            onChange="checkBoxHandler('gray')"
+            value="gray"
+            name="grayMode"
+          />&emsp; Light
+
+          <input
+            type="radio"
+            onChange="checkBoxHandler('gray')"
+            value="gray"
+            name="grayMode"
+          />
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('blackwhite')"
+            value="blackwhite"
+          />
+          Black/White
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('polaroid')"
+            value="polaroid"
+          />
+          Polaroid
+        </div>
+        <div class="custom-checkbox-container">
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('invert')"
+            value="invert"
+            class="custom-checkbox-input"
+          />
+          Invert
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('sepia')"
+            value="sepia"
+          />
+          Sepia
+        </div>
+
+        <hr />
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('contrast')"
+            value="contrast"
+          />
+          Contrast
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('saturation')"
+            value="saturation"
+          />
+          Saturation
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('blur')"
+            value="blur"
+          />
+          Blur
+          <!-- <input type="range" name="" id="" /> -->
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
