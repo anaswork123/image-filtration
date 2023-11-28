@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -20,38 +19,39 @@
           <button onclick="clearHandler()" class="btn btn-danger">Clear</button>
         </div>
         <canvas id="myCanvas"></canvas>
+        <button class="btn btn-success mt-1" onclick="downloadHandler()"><a href="" id="download_link">Download</a></button>
       </div>
       <div class="filters">
         <div>
-          Grayscale
           <input
             type="checkbox"
             onChange="checkBoxHandler('gray')"
             value="gray"
-          />
-
-          &emsp; Avg
+          /> Grayscale
+           
+          <!-- Avg
           <input
             type="radio"
-            onChange="checkBoxHandler('gray')"
-            value="gray_Avg"
-            name="grayMode"
+            onChange="modeHandler()"
+            value="average"
+            name="mode"
           />
 
           &emsp; Lum<input
             type="radio"
-            onChange="checkBoxHandler('gray')"
-            value="gray"
-            name="grayMode"
+            onChange="modeHandler()"
+            value="luminosity"
+            name="mode"
           />&emsp; Light
 
           <input
             type="radio"
-            onChange="checkBoxHandler('gray')"
-            value="gray"
-            name="grayMode"
-          />
+            onChange="modeHandler()"
+            value="lightness"
+            name="mode"
+          /> -->
         </div>
+        
         <div>
           <input
             type="checkbox"
@@ -63,11 +63,27 @@
         <div>
           <input
             type="checkbox"
+            onChange="checkBoxHandler('sharpen')"
+            value="sharpen"
+          />
+          Sharpen
+        </div>
+        <div>
+          <input
+            type="checkbox"
             onChange="checkBoxHandler('polaroid')"
             value="polaroid"
           />
           Polaroid
         </div>
+        <!-- <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('emboss')"
+            value="emboss"
+          />
+          Emboss
+        </div> -->
         <div class="custom-checkbox-container">
           <input
             type="checkbox"
@@ -85,15 +101,17 @@
           />
           Sepia
         </div>
-
-        <hr />
+        
+    </div>
+    <div class="range_filters">
         <div>
           <input
             type="checkbox"
             onChange="checkBoxHandler('contrast')"
             value="contrast"
           />
-          Contrast
+          Contrast <br />
+          <input type="range" onchange="rangeHandler('contrast',event)" />
         </div>
         <div>
           <input
@@ -101,7 +119,26 @@
             onChange="checkBoxHandler('saturation')"
             value="saturation"
           />
-          Saturation
+          Saturation <br />
+          <input type="range" onchange="rangeHandler('saturation',event)" />
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('vibrance')"
+            value="vibrance"
+          />
+          Vibrance<br />
+          <input type="range" onchange="rangeHandler('vibrance',event)" />
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('brightness')"
+            value="brightness"
+          />
+          Brightness<br />
+          <input type="range" onchange="rangeHandler('brightness',event)" />
         </div>
         <div>
           <input
@@ -109,11 +146,17 @@
             onChange="checkBoxHandler('blur')"
             value="blur"
           />
-          Blur
-          <!-- <input type="range" name="" id="" /> -->
+          Blur<br />
+          <input type="range" onchange="rangeHandler('blur',event)" />
+        </div>
+        <div style="background-color: white;">
+          <button class="btn btn-primary" onclick="clearFilters()">
+            Clear Filters
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
     <script src="script.js"></script>
   </body>

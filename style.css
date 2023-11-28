@@ -21,10 +21,13 @@ button {
 .wrapper {
   display: flex;
   align-items: flex-start;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 .filters {
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
   flex-direction: column;
   margin-left: 3rem;
   margin-top: 3rem;
@@ -35,6 +38,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 #myImage {
   margin-right: 1rem;
@@ -43,11 +47,32 @@ button {
   display: flex;
 }
 .filters div {
-  background-color: rgb(231, 229, 229);
-  padding: 0.5rem;
-  margin: 0.5rem;
+  background-color: rgba(232, 228, 228, 0.926);
+  padding: 0.5rem 2rem;
+  margin: 0.6rem 0.5rem;
   border-radius: 4px;
+  width: 12rem;
 }
 .filters div > input {
-  margin-right: 0.2rem;
+  /* margin-right: 0.1rem; */
+}
+
+.range_filters div {
+  background-color: rgb(231, 229, 229);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.55rem;
+  margin-left: 2rem;
+}
+
+.filters,
+.range_filters {
+  margin-top: 5rem !important;
+}
+a {
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: white;
 }

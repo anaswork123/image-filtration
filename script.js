@@ -2,11 +2,13 @@ let body = document.getElementsByTagName("body")[0];
 const imageEl = document.querySelector("#myImage");
 let input = document.querySelector("input");
 let checkboxesEl = document.querySelectorAll("input[type='checkbox']");
+let rangeEl = document.querySelectorAll("input[type='range']");
+let greyMode = document.querySelectorAll("input[name='mode']");
+let link = document.getElementById("download_link");
 let imageUrl = "";
 
 var canvas = initializeCanvas();
 canvas.selection = false;
-
 function initializeCanvas() {
   let myCanvas = document.getElementById("myCanvas");
 
@@ -45,11 +47,17 @@ function enableCheckBoxes() {
   checkboxesEl.forEach((element) => {
     element.disabled = false;
   });
+  rangeEl.forEach((element) => {
+    element.disabled = false;
+  });
   input.disabled = true;
 }
 
 function disalbeCheckBoxes() {
   checkboxesEl.forEach((element) => {
+    element.disabled = true;
+  });
+  rangeEl.forEach((element) => {
     element.disabled = true;
   });
 }
@@ -61,18 +69,66 @@ function deselectAllCheckboxes() {
   });
 }
 
-const currentFilters = [];
+function clearFilters() {
+  const img = checkBoxHandler();
+  if (img) {
+    img.filters = [];
+    img.applyFilters();
+    canvas.renderAll();
+    deselectAllCheckboxes();
+  }
+}
 
-function checkBoxHandler(check) {
+const filterValue = {
+  vibrance: 0.3,
+  blur: 0.1,
+  contrast: 0.3,
+  saturation: 0.4,
+  brightness: 0.2,
+};
+
+function modeHandler() {
+  console.log(greyMode);
+}
+
+function rangeHandler(filter, e) {
+  const value = e.target.value / 100;
+
+  for (i in filterValue) {
+    if (i === filter) {
+      filterValue[filter] = value;
+    }
+  }
+  checkBoxHandler(filter);
+}
+
+function checkBoxHandler(filter) {
+  // console.log(filter, value);
   const filters = {
     gray: new fabric.Image.filters.Grayscale(),
-    blur: new fabric.Image.filters.Blur({ blur: 0.1 }),
     sepia: new fabric.Image.filters.Sepia(),
     invert: new fabric.Image.filters.Invert(),
-    contrast: new fabric.Image.filters.Contrast({ contrast: 0.5 }),
-    saturation: new fabric.Image.filters.Saturation({ saturation: 0.5 }),
     blackwhite: new fabric.Image.filters.BlackWhite(),
     polaroid: new fabric.Image.filters.Polaroid(),
+    sharpen: new fabric.Image.filters.Convolute({
+      matrix: [0, -1, 0, -1, 5, -1, 0, -1, 0],
+    }),
+
+    vibrance: new fabric.Image.filters.Vibrance({
+      vibrance: filterValue.vibrance,
+    }),
+    brightness: new fabric.Image.filters.Brightness({
+      brightness: filterValue.brightness,
+    }),
+    blur: new fabric.Image.filters.Blur({
+      blur: filterValue.blur,
+    }),
+    contrast: new fabric.Image.filters.Contrast({
+      contrast: filterValue.contrast,
+    }),
+    saturation: new fabric.Image.filters.Saturation({
+      saturation: filterValue.saturation,
+    }),
   };
 
   const checkedCheckboxes = Array.from(checkboxesEl).filter(
@@ -92,14 +148,10 @@ function checkBoxHandler(check) {
   function applyFilters(img) {
     img.filters = checkedResult;
     img.applyFilters();
-    console.log(img.filters);
+    // console.log(img.filters);
     canvas.renderAll();
   }
-}
-
-function imageHandler(e) {
-  imageUrl = e.target.files[0];
-  setBackground(canvas);
+  return img;
 }
 
 const reader = new FileReader();
@@ -129,6 +181,17 @@ function clearHandler() {
   input.value = "";
 }
 
+function downloadHandler() {
+  const imageUrl = checkBoxHandler();
+  var dataURL = imageUrl.toDataURL({
+    format: "png",
+    quality: 1.0,
+    // multiplier: 2,
+  });
+  link.href = dataURL;
+  link.download = "canvas_image.png";
+}
+
 //Event listeners
 imageEl.addEventListener("change", imageUploadHandler);
 
@@ -142,6 +205,7 @@ reader.addEventListener("load", () => {
 
     textureHandler(img);
     canvas.add(img);
+    canvas.setActiveObject(img);
     canvas.renderAll();
   });
 });
