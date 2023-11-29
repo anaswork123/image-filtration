@@ -101,7 +101,46 @@
           />
           Sepia
         </div>
-        
+        <div>
+          <input
+            type="checkbox"
+            onChange="checkBoxHandler('test')"
+            value="test"
+          />
+          Emboss
+        </div>
+        <div class="blend">
+          <span>
+            Color Blend: 
+            <input 
+                  type="checkbox" 
+                  value="blend" 
+                  onChange="checkBoxHandler('blend')"
+            >
+          </span> <br>
+          <span class="selectBox">
+            Mode:
+            <select onchange="modeBlendHandler(event)" >
+              <option value="add" >Add</option>
+              <option value="diff">Diff</option>
+              <option value="subtract">Subtract</option>
+              <option value="multiply">Multiply</option>
+              <option value="screen">Screen</option>
+              <option value="lighten">Lighten</option>
+              <option value="darken" selected>Darken</option>
+              <option value="overlay">Overlay</option>
+              <option value="exclusion">Exclusion</option>
+              <option value="tint">Tint</option>
+            </select>
+          </span>
+          <span oninput="colorBlendHandler(event)">
+            Color: <input type="color" id="colorPicker" ><br>
+          </span>
+          <!-- <span>
+            Value: <input type="range" name="" id=""> 
+          </span> -->
+          
+        </div>
     </div>
     <div class="range_filters">
         <div>
@@ -148,6 +187,23 @@
           />
           Blur<br />
           <input type="range" onchange="rangeHandler('blur',event)" />
+        </div>
+        <div class="remove">
+          <span>
+            Remove Background: 
+            <input 
+                  type="checkbox" 
+                  value="remove" 
+                  onChange="checkBoxHandler('remove');removeColorHandler()"
+            >
+          </span> <br>
+          <span oninput="">
+            Color: <input type="color" id="remove_picker" onchange="removeColorHandler(event)"><br>
+          </span>
+          <span>
+            Value: <input type="range" onchange="removeRangeHandler(event)" id="remove_range"> 
+          </span>
+          
         </div>
         <div style="background-color: white;">
           <button class="btn btn-primary" onclick="clearFilters()">

@@ -76,3 +76,22 @@ a:hover {
   text-decoration: none;
   color: white;
 }
+.blend > span {
+  display: inline-block;
+  margin-top: 1rem;
+  /* padding: 0rem 1rem; */
+  width: 14rem;
+}
+.remove > span {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0rem 1rem;
+  width: 14rem;
+}
+
+.selectBox {
+  display: flex !important;
+}
+.selectBox > select {
+  margin-left: 0.5rem;
+}

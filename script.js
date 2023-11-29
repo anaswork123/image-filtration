@@ -22,7 +22,7 @@ function initializeCanvas() {
 }
 
 function setBackground(imageUrl) {
-  const color = "lightgrey";
+  const color = "white";
   const background = new fabric.Rect({
     width: canvas.width,
     height: canvas.height,
@@ -42,6 +42,7 @@ function setBackground(imageUrl) {
   canvas.renderAll();
   // });
 }
+setBackground();
 
 function enableCheckBoxes() {
   checkboxesEl.forEach((element) => {
@@ -87,8 +88,34 @@ const filterValue = {
   brightness: 0.2,
 };
 
-function modeHandler() {
-  console.log(greyMode);
+const blendOptions = {
+  color: "red",
+  mode: "darken",
+};
+
+const removeOptions = {
+  color: "",
+  value: 0.1,
+};
+
+function removeRangeHandler(e) {
+  removeOptions.value = e.target.value / 100;
+  checkBoxHandler();
+}
+
+function removeColorHandler(e) {
+  removeOptions.color = document.getElementById("remove_picker").value;
+  checkBoxHandler();
+}
+
+function modeBlendHandler(e) {
+  blendOptions.mode = e.target.value;
+  checkBoxHandler();
+}
+
+function colorBlendHandler(e) {
+  blendOptions.color = e.target.value;
+  checkBoxHandler();
 }
 
 function rangeHandler(filter, e) {
@@ -103,6 +130,8 @@ function rangeHandler(filter, e) {
 }
 
 function checkBoxHandler(filter) {
+  console.log(removeOptions);
+
   // console.log(filter, value);
   const filters = {
     gray: new fabric.Image.filters.Grayscale(),
@@ -113,7 +142,13 @@ function checkBoxHandler(filter) {
     sharpen: new fabric.Image.filters.Convolute({
       matrix: [0, -1, 0, -1, 5, -1, 0, -1, 0],
     }),
-
+    test: new fabric.Image.filters.Convolute({
+      matrix: [0, 1, 0, 1, -4, 1, 0, 1, 0],
+    }),
+    remove: new fabric.Image.filters.RemoveColor({
+      color: removeOptions.color,
+      distance: removeOptions.value,
+    }),
     vibrance: new fabric.Image.filters.Vibrance({
       vibrance: filterValue.vibrance,
     }),
@@ -128,6 +163,11 @@ function checkBoxHandler(filter) {
     }),
     saturation: new fabric.Image.filters.Saturation({
       saturation: filterValue.saturation,
+    }),
+    blend: new fabric.Image.filters.BlendColor({
+      color: blendOptions.color,
+      mode: blendOptions.mode,
+      value: 0.9,
     }),
   };
 
@@ -148,7 +188,7 @@ function checkBoxHandler(filter) {
   function applyFilters(img) {
     img.filters = checkedResult;
     img.applyFilters();
-    // console.log(img.filters);
+    console.log(img.filters);
     canvas.renderAll();
   }
   return img;
